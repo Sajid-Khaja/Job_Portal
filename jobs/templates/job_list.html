@@ -13,7 +13,16 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="#">Job Portal</a>
-            <div class="d-flex">
+            <div class="d-flex align-items-center">
+                <span class="text-white me-3">Welcome, {{ request.user.username }}</span>
+                
+                {% if user.is_staff %}
+                    <a href="{% url 'registered_users' %}" class="btn btn-info me-2">View Registered Users</a>
+                    <a href="{% url 'job_create' %}" class="btn btn-warning me-2">create a job</a>
+                {% endif %}
+                
+                <a href="{% url 'applied_jobs' %}" class="btn btn-warning me-2">Applied Jobs</a>
+                <a href="{% url 'saved_jobs' %}" class="btn btn-secondary me-2">Saved Jobs</a>
                 <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
             </div>
         </div>
@@ -68,6 +77,14 @@
                         <div class="mt-auto">
                             <a href="{% url 'job_detail' job.id %}" class="btn btn-primary w-100">View Details</a>
                             <a href="{% url 'apply_job' job.id %}" class="btn btn-success w-100 mt-2">Apply Now</a>
+
+                            {% if user.is_authenticated %}
+                                {% if job in saved_jobs %}
+                                    <a href="{% url 'remove_saved_job' job.id %}" class="btn btn-warning w-100 mt-2">⭐ Unsave</a>
+                                {% else %}
+                                    <a href="{% url 'save_job' job.id %}" class="btn btn-outline-warning w-100 mt-2">⭐ Save Job</a>
+                                {% endif %}
+                            {% endif %}
                         </div>
                     </div>
                 </div>

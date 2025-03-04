@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Applied Jobs{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Your Applied Jobs</h2>
+
+        {% if applied_jobs %}
+            <div class="row">
+                {% for application in applied_jobs %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">{{ application.job.title }}</h5>
+                                <p><strong>Company:</strong> {{ application.job.company }}</p>
+                                <p><strong>Location:</strong> {{ application.job.location }}</p>
+                                <p><strong>Salary:</strong> ${{ application.job.salary }}</p>
+                                <p><strong>Applied on:</strong> {{ application.created_at }}</p>
+                                <a href="{% url 'job_detail' application.job.id %}" class="btn btn-primary">View Job</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-muted text-center">You haven't applied for any jobs yet.</p>
+        {% endif %}
+    </div>
+{% endblock %}

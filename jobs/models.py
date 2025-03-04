@@ -24,7 +24,6 @@ class Job(models.Model):
     def __str__(self):
         return f"{self.title} - {self.company}"
 
-
 class JobApplication(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
@@ -33,4 +32,15 @@ class JobApplication(models.Model):
     def __str__(self):
         return f"{self.user.username} - {self.job.title}"
 
+# ⭐ Add the Bookmark model
+class Bookmark(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'job')  # Prevent duplicate bookmarks
+
+    def __str__(self):
+        return f"{self.user.username} - {self.job.title} (Saved)"
 

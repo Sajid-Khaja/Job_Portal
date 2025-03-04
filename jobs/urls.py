@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import (
     job_list, job_create, job_detail, job_update, job_delete, 
-    register, user_login, user_logout,apply_job,application_history,application_status
+    register, user_login, user_logout,apply_job,application_history,application_status,applied_jobs,registered_users,save_job, saved_jobs, remove_saved_job
 )
 
 urlpatterns = [
@@ -16,4 +16,10 @@ urlpatterns = [
     path('jobs/<int:job_id>/apply/', apply_job, name='apply_job'),
     path('applications/', application_history, name='application_history'),
      path('my-applications/', application_status, name='application_status'),
-]
+      path('applied-jobs/', applied_jobs, name='applied_jobs'),
+      path('registered-users/', registered_users, name='registered_users'),
+     path('save-job/<int:job_id>/', save_job, name='save_job'),
+    path('saved-jobs/', saved_jobs, name='saved_jobs'),
+    path('remove-saved-job/<int:job_id>/', remove_saved_job, name='remove_saved_job'),
+]  
+

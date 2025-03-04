@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Saved Jobs</h2>
+
+    {% if bookmarks %}
+        <div class="row">
+            {% for bookmark in bookmarks %}
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ bookmark.job.title }}</h5>
+                        <p><strong>Company:</strong> {{ bookmark.job.company }}</p>
+                        <p><strong>Location:</strong> {{ bookmark.job.location }}</p>
+                        <a href="{% url 'job_detail' bookmark.job.id %}" class="btn btn-primary">View Job</a>
+                        <a href="{% url 'remove_saved_job' bookmark.job.id %}" class="btn btn-danger">Remove</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-muted text-center">You have no saved jobs.</p>
+    {% endif %}
+</div>
+{% endblock %}
