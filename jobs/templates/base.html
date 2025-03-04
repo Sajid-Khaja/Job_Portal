@@ -12,6 +12,7 @@
             <a class="navbar-brand" href="{% url 'job_list' %}">Job Portal</a>
             <div class="navbar-nav">
                 {% if user.is_authenticated %}
+                    <a class="nav-link" href="{% url 'application_history' %}">My Applications</a>
                     <a class="nav-link" href="{% url 'job_create' %}">Post a Job</a>
                     <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                 {% else %}
